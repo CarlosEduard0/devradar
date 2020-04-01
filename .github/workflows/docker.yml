@@ -18,9 +18,13 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
-    - name: Build Be The Hero API
+    - name: Build DevRadar API
       run: docker build -t carloseduard0/devradar-api ./backend
+
+    - name: Build DevRadar Frontend
+      run: docker build --build-arg APP_API_URL=http://devradar.local/api -t carloseduard0/devradar-frontend ./frontend
       
     - name: Docker push
       run: |
         docker push carloseduard0/devradar-api
+        docker push carloseduard0/devradar-frontend
